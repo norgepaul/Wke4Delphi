@@ -120,7 +120,7 @@ type
     procedure DoWebViewWindowDestroy(Sender: TObject);
     function DoWebViewDownloadFile(Sender: TObject; sUrl: string): boolean;
     procedure DoWebViewLoadUrlEnd(Sender: TObject; sUrl: string; job: Pointer; buf: Pointer; len: Integer);
-    procedure DoWebViewLoadUrlStart(Sender: TObject; sUrl: string; out bhook, bHandle: boolean);
+    procedure DoWebViewLoadUrlStart(Sender: TObject; sUrl: string; const job: Pointer; out bhook, bHandle: boolean);
     procedure DoWebViewJsCallBack(Sender: TObject; param: Pointer; es: TmbJsExecState; v: TmbJsValue);
     procedure DombJsBingFunction(Sender: TObject; const msgid: Integer; const response: string);
 
@@ -392,7 +392,7 @@ begin
  // result :=true;
   bhook := false;
   bHandled := false;
-  TWkeWebBrowser(param).DoWebViewLoadUrlStart(TWkeWebBrowser(param), StrPas(url), bhook, bHandled);
+  TWkeWebBrowser(param).DoWebViewLoadUrlStart(TWkeWebBrowser(param), StrPas(url), job, bhook, bHandled);
   if bhook then
     if Assigned(wkeNetHookRequest) then
       wkeNetHookRequest(job);
@@ -409,7 +409,7 @@ var
 begin
   bhook := false;
   bHandled := false;
-  TWkeWebBrowser(param).DoWebViewLoadUrlStart(TWkeWebBrowser(param), StrPas(url), bhook, bHandled);
+  TWkeWebBrowser(param).DoWebViewLoadUrlStart(TWkeWebBrowser(param), StrPas(url), job, bhook, bHandled);
   if bhook then
     if Assigned(wkeNetHookRequest) then
       wkeNetHookRequest(job);
@@ -810,11 +810,11 @@ begin
     FOnLoadUrlEnd(self, sUrl, buf, len);
 end;
 
-procedure TWkeWebBrowser.DoWebViewLoadUrlStart(Sender: TObject; sUrl: string; out bhook, bHandle: boolean);
+procedure TWkeWebBrowser.DoWebViewLoadUrlStart(Sender: TObject; sUrl: string; const Job: Pointer; out bhook, bHandle: boolean);
 begin
   //bhook:=true 表示hook会触发onloadurlend 如果只是设置 bhandle=true表示 ，只是拦截这个URL
   if Assigned(FOnLoadUrlBegin) then
-    FOnLoadUrlBegin(Self, sUrl, bhook, bHandle);
+    FOnLoadUrlBegin(Self, sUrl, job, bhook, bHandle);
 end;
 
 procedure TWkeWebBrowser.DoWebViewMouseOverUrlChange(Sender: TObject; sUrl: string);

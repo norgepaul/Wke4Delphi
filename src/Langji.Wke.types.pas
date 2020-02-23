@@ -384,7 +384,7 @@ type
   TOnConsoleMessgeEvent =procedure( Sender: TObject;const sMsg, source:string ;const sline:integer) of object;
 
   TOnLoadUrlEndEvent = procedure(Sender: TObject; sUrl: string;  buf: Pointer; len: Integer) of object;
-  TOnLoadUrlBeginEvent = procedure(Sender: TObject; sUrl: string;  out bHook,bHandled:boolean) of object;
+  TOnLoadUrlBeginEvent = procedure(Sender: TObject; sUrl: string; const job: Pointer; out bHook,bHandled:boolean) of object;
 
 
 

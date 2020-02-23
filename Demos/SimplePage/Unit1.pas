@@ -29,10 +29,10 @@ type
     procedure Button3Click(Sender: TObject);
     procedure Button4Click(Sender: TObject);
     procedure Edit1KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure WkeWebBrowser1LoadUrlBegin(Sender: TObject; sUrl: string;
-      out bHook, bHandled: Boolean);
     procedure WkeWebBrowser1LoadUrlEnd(Sender: TObject; sUrl: string;
       buf: Pointer; len: Integer);
+    procedure WkeWebBrowser1LoadUrlBegin(Sender: TObject; sUrl: string;
+      const job: Pointer; out bHook, bHandled: Boolean);
   private
     procedure showtip(const s:string);
     { Private declarations }
@@ -86,7 +86,7 @@ end;
 
 procedure TForm1.FormShow(Sender: TObject);
 begin
-  WkeWebBrowser1.LoadUrl('http://www.langjisky.com/');
+  //WkeWebBrowser1.LoadUrl('http://www.langjisky.com/');
  //   WkeWebBrowser1.LoadFile('E:\Wnmp\html\新建文件夹\index.html');
 end;
 
@@ -103,12 +103,18 @@ begin
 end;
 
 procedure TForm1.WkeWebBrowser1LoadUrlBegin(Sender: TObject; sUrl: string;
-  out bHook, bHandled: Boolean);
+  const job: Pointer; out bHook, bHandled: Boolean);
 begin
+  wkeNetSetHTTPHeaderField(
+    job,
+    'Accept-Language',
+    'en-GB',
+    false);
+
  // if Pos('.js',sUrl)>0   then
   begin
-     Caption :=sUrl;
-     bHandled :=true;
+    // Caption :=sUrl;
+    // bHandled :=true;
    //  bhook:=true;
     // showtip(sUrl);
   end;

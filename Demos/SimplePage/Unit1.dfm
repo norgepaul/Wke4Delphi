@@ -26,9 +26,8 @@ object Form1: TForm1
       'ike Gecko) Chrome/31.0.1650.63 Safari/537.36 Langji.Wke 1.0'
     OnTitleChange = WkeWebBrowser1TitleChange
     OnLoadEnd = WkeWebBrowser1LoadEnd
-    OnLoadUrlEnd = WkeWebBrowser1LoadUrlEnd
     OnLoadUrlBegin = WkeWebBrowser1LoadUrlBegin
-    ExplicitHeight = 407
+    OnLoadUrlEnd = WkeWebBrowser1LoadUrlEnd
   end
   object Panel1: TPanel
     Left = 0
@@ -57,7 +56,7 @@ object Form1: TForm1
       Margins.Right = 2
       Margins.Bottom = 2
       TabOrder = 6
-      Text = 'https://www.baidu.com/'
+      Text = 'https://manytools.org/http-html-text/http-request-headers/'
       OnKeyDown = Edit1KeyDown
     end
     object btn_back: TBitBtn
@@ -121,8 +120,5 @@ object Form1: TForm1
     Height = 19
     Panels = <>
     SimplePanel = True
-    ExplicitLeft = 464
-    ExplicitTop = 472
-    ExplicitWidth = 0
   end
 end
